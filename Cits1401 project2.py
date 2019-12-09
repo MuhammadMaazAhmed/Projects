@@ -19,13 +19,12 @@ def main(textfile1,textfile2,feature):
     dist=distance(profile_1,profile_2)
     return(dist,dict1,dict2)
 
-def nonblank_lines(f): #skips \n\n lines and counts paragraphs
-    
+def nonblank_lines(f): #skips \n\n lines and counts paragraphs 
     for l in f:
         line= l.replace('\n','"') # adds '"' to end of each line to be removed later
         if line:
             yield line
-
+            
 def count_para(w):
     para=1
     while not w[-1]: #deletes blank spaces from the end of the text file
@@ -35,8 +34,7 @@ def count_para(w):
             para+=1
     return (para)
 
-def parse_txt(filename):#tokenises words and counts numb of sentences,';' and ',' from a given txt file  
-    
+def parse_txt(filename):#tokenises words and counts numb of sentences,';' and ',' from a given txt file   
     words = []
     semicolan_count, comma_count, sentence_count,para_count = 0,0,0,0
     newline_terminators = ['.^^', '!^^', '?^^', ':^^', ';^^',',^^'] #characters that define an end of a line
@@ -49,7 +47,6 @@ def parse_txt(filename):#tokenises words and counts numb of sentences,';' and ',
     with open(filename) as f:
         iterate=nonblank_lines(f)
         for line in iterate:
-
             temp_semi_count = line.count(';')
             semicolan_count += temp_semi_count
             
@@ -65,18 +62,15 @@ def parse_txt(filename):#tokenises words and counts numb of sentences,';' and ',
             elif line.endswith("'"):
                 line=line[:-1]
                     
-            line = line.strip()
-            
+            line = line.strip()   
             for remove in removes:
-                line = line.replace(remove, ' ').lower() 
-                
+                line = line.replace(remove, ' ').lower()  
             line = line.split()
             words.append(line)
     para_count=count_para(words)
     count=[semicolan_count,comma_count,sentence_count,para_count]
     return (words,count)
    
-
 def conjunctions(w):
     conjunction = {'also': 0, 'although': 0, 'and': 0, 'as': 0, 'because': 0, 'before': 0, 'but': 0, 'for': 0,
                    'if': 0, 'nor': 0, 'of': 0, 'or': 0, 'since': 0, 'that': 0, 'though': 0, 'until': 0, 'when': 0,
